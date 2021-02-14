@@ -1,9 +1,7 @@
   /**
- * Simple Read
+ * Snow Day
  * 
- * Read data from the serial port and change the color of a rectangle
- * when a switch connected to a Wiring or Arduino board is pressed and released.
- * This example works with the Wiring / Arduino program that follows below.
+ * A snow simulator
  */
 
 
@@ -21,17 +19,20 @@ ArrayList<Snowflake> flakes;
 
 void setup() 
 {
+  //size(1000,1000);
   fullScreen();
-  frameRate(30);
+  
+  frameRate(80);
   flakes = new ArrayList();
   vals = new float[]{1750,1750,1,1,1};
   theme = color(125, 227, 227);
-  String portName = Serial.list()[6];
+  //for(int i =0; i<Serial.list().length;i++) System.out.println(Serial.list()[i]);
+  String portName = Serial.list()[2];
   System.out.println(portName);
   port = new Serial(this, portName, 115200);
   
-  //myPort = new Serial(this, portName, 9600);
 }
+
 
 void draw()
 {
@@ -39,21 +40,14 @@ void draw()
    if ( port.available() > 0) {  // If data is available,
      val = port.readStringUntil('\n');         // read it and store it in val
      val = trim(val);
+     System.out.println(val);
      if(val!=null&& val.length()<18 && val.length()>=7){
-       //System.out.println(val);
        String temp[] = val.split(",");
        for(int i = 0; i <temp.length; i++){
          if(isNumeric(temp[i])) vals[i] = Float.parseFloat(temp[i]);
        }
      }
-     
-     //if(val!=null){
-     //  vals = val.split(",");
-     //}
    }
-   for(float s:vals){
-     System.out.print(s+";");}
-   System.out.println(";");
   
    /* Change States*/
    if(state == 0){ //init
@@ -81,8 +75,11 @@ void draw()
 void initScreen(){ //stage0
   textSize(64);
   fill(39, 186, 98);
-  text("Snow Day", width/2-32, height/2-32); 
-  text("to change theme", width/2-32, height/2); 
+  text("Snow Day", width/2-120, height/2-120); 
+  textSize(32);
+  text("to change theme", width/2-80, height/2); 
+  stroke(0);
+  square(width/2 - 120, height/2-32, 32);
   snowfall();
   themeChange();
 }
@@ -93,10 +90,21 @@ void playing(){ //stage1
   if(vals[2]==0){
     heavySnow();
   }
+  
+  fill(39, 186, 98);
+  textSize(32);
+  stroke(0);
+  square(width-250,height-250,30);
+  text("to pause", width-210, height-220); 
+  text("to add snow", width-210, height-120); 
+  fill(230,195,75);
+  square(width-250,height-150,30);
 }
 
 void pause(){ //stage3
-  triangle(width/2,height/2, width/2, height/2+80, width/2+60, height/2+40);
+  fill(255);
+  stroke(0);
+  triangle(width/2-100,height/2-100, width/2-100, height/2-20, width/2-40, height/2-60);
   for(Snowflake s: new ArrayList<Snowflake>(flakes)){
     s.display();
   }
@@ -142,13 +150,13 @@ class Snowflake{
     posx = random(width);
     posy = random(-10,-100);
     
-    xscale = random(0,0.1);
-    yscale = random(0,0.1);
+    xscale = random(0.05,0.2);
+    yscale = random(0.05,0.2);
     diameter = random(5,10);
   }
   
   void fall(){
-    posy += 80/diameter;
+    posy += 150/diameter;
     if(posy > height+diameter){
       outOfRange = true;
     }
