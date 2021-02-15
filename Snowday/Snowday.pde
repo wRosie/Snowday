@@ -63,12 +63,35 @@ void draw()
    }
  
   background(theme);
+  
+   //This house picture is modified from https://www.openprocessing.org/sketch/206546/
+  fill (theme);
+  if(themeState == 0 ||themeState ==1) stroke(0);
+  else stroke(255);
+  rect (250, 550, 300, 250);;
+  ellipse(350, 395, 20, 20);
+  ellipse(370, 395, 40, 40);
+  ellipse (390, 385, 40, 40);
+  ellipse (410, 360, 40, 40);
+  ellipse (415, 355, 40, 40);
+  rect (340, 390, 45, 70);
+  triangle (250, 550, 395, 370, 550, 550);
+  rect (440, 590, 75, 50);
+  rect (290, 590, 75, 50);
+  rect (290, 690, 75, 50);
+  rect (440, 690, 75, 50);
+  rect (380, 730, 45, 70);
+  
   if(state==0)
     initScreen();
   else if(state==1)
     playing();
   else
     pause();
+    
+ 
+
+
   
 }
 
