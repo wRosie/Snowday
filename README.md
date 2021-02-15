@@ -34,6 +34,12 @@ To reproduce the controller, connect the joystick, buttons and the SPST switch t
 
 ![./IMG_7302.HEIC](./ESP32.png)
 
-To correctly configure the controller, connect the ESP32 to a computer and upload the Arduino script to the ESP32 through Arduino IDE. Make sure you modify the port name and PIN number to the specific pin you use.
+To correctly configure the controller, connect the ESP32 to a computer and upload the Arduino script to the ESP32 through Arduino IDE. 
 
-Then, connect the controller to the Raspberry Pi and run the processing script on the Raspberry Pi. Modify the port number in Serial.list() to the port you use. Enjoy the snow on your sceen!
+Make sure you modify the port name and PIN number to the specific pin you use. 
+
+You can check the serial output using the Serial Monitor in Arduino IDE. Make sure you use the correct baud rate that matches the baud rate set in your arduino scipt.
+
+Then, connect the controller to the Raspberry Pi and run the processing script on the Raspberry Pi. Modify the port number in Serial.list() to the port you use.
+
+You are done! Enjoy the snow day!
